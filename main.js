@@ -44,10 +44,7 @@ function createActives() {
     }
 }
 createActives();
-
 let length = (JSON.parse(localStorage.getItem('actives'))).length;
-console.log(length);
-console.log('actives da luu', localStorage.getItem('actives'));
 
 // handle when click active-item
 function showModalActives(element) {
@@ -224,8 +221,14 @@ function handleModalActives() {
     $('#modal__btn--confirm').click(() => {
         const activeId = $('.modal__actives').attr('active-id');
         const value = $('#modal__new--number').val();
+        console.log($('#modal__new--number'));
+        console.log('value', value);
         const name = $('#modal__new--name').val();
+        console.log($('#modal__new--name'));
+        console.log('name', name);
         const description = $('#modal__new--description').val();
+        console.log($('#modal__new--description'));
+        console.log('description', description);
         const type = $('input[name="budget"]:checked').val();
         const createdDateAt = (new Date()).toDateString();
 
@@ -359,12 +362,12 @@ function renderHistoryWhenInit() {
 }
 
 function getTotalSlideItems() {
-    let totalSlide = $('.category__body--item').length * 120;
-
     return (($('.category__body--item').length - 5) / 2).toFixed();
 };
 
 function renderActives() {
+
+    $('.category__body--container').empty();
     (model.getActives()).forEach((value, index) => {
         if (index === (length - 1)) {
             $(` 
@@ -559,16 +562,17 @@ function addActive(active) {
     const array = model.getActives();
     const lastActive = (array.pop());
     array.push(active, lastActive);
-    console.log(array);
     localStorage.setItem('actives', JSON.stringify(array))
-    // chua xong
 }
 
 // create active
 function handleCreateOtherActive() {
+    // reset 
+    $('.js-modal__other--confirm').unbind();
+
     $('.js-category__body--other').click(() => {
         $('.js-modal__other').removeClass('d-none');
-    })
+    });
 
     $('.js-modal__other--confirm').click(() => {
         let value = ($('.js-modal__other--input').val()).trim();
@@ -595,11 +599,20 @@ function handleCreateOtherActive() {
             </div>
             `);
 
-            handleSlideActives();
-            renderActives();
-            handleModalActives();
+            // reset value
+            $('.js-modal__other--input').val('')
 
+            renderActives();
+
+            // reset function handleModalActives()
+            $('#modal__btn--confirm').unbind();
+
+            // call functions
+            handleModalActives();
+            handleCreateOtherActive();
+            handleSlideActivesWhenCreateNewActive();
             $('.js-modal__other').addClass('d-none');
+
         }
     })
 
@@ -609,8 +622,7 @@ function handleCreateOtherActive() {
 }
 
 // handle animation/slide actives
-function handleSlideActives() {
-    console.log('handleSlideActives');
+function handleSlideActivesWhenInit() {
 
     // reset slide
     $('.category__body--container').css('transform', `translateX(0px)`);
@@ -619,7 +631,6 @@ function handleSlideActives() {
 
     let sequelize = 0;
     let n = getTotalSlideItems();
-    console.log('n', n);
     let i = 0;
 
     $('.category__header--next').click(() => {
@@ -647,12 +658,56 @@ function handleSlideActives() {
 
 }
 
+function handleSlideActivesWhenCreateNewActive() {
+    // reset slide
+    $('document').ready(() => {
+        const n = getTotalSlideItems();
+        console.log('n', n);
+        let sequelize = n * 240;
+        let i = n;
+        // reset slide
+        $('.category__body--container').css('transform', `translateX(-${n * 240}px)`);
+        $('.category__header--next').unbind();
+        $('.category__header--previous').unbind();
+        $('.category__header--next').addClass('disable');
+        $('.category__header--previous').removeClass('disable');
+
+        $('.category__header--next').click(() => {
+            sequelize = sequelize + 240;
+            i++;
+            $('.category__body--container').css('transform', `translateX(${-sequelize}px)`);
+
+            if (i == n) {
+                $('.category__header--next').addClass('disable');
+                $('.category__header--previous').removeClass('disable');
+            }
+            else $('.category__header--previous').removeClass('disable');
+        });
+
+        $('.category__header--previous').click(() => {
+            sequelize = sequelize - 240;
+            i--;
+            $('.category__body--container').css('transform', `translateX(${-sequelize}px)`);
+            if (i === 0) {
+                $('.category__header--previous').addClass('disable');
+                $('.category__header--next').removeClass('disable');
+            }
+            else $('.category__header--next').removeClass('disable');
+        });
+
+    })
+
+}
+
 $('document').ready(() => {
     renderActives();
     renderHistoryWhenInit();
 
+    // handle create other active
+    handleCreateOtherActive();
+
     // handle slide active
-    handleSlideActives()
+    handleSlideActivesWhenInit()
 
     // stop Propagation when click delete history item and handle confirm
     $('.history__item--delete').click((event) => {
@@ -690,7 +745,4 @@ $('document').ready(() => {
 
     // render modal history when click
     renderModalHistoryWhenClick();
-
-    // handle create other active
-    handleCreateOtherActive();
 })
