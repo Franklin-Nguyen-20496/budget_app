@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budger App</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png" />
+    <link rel="manifest" href="./assets/favicon/site.webmanifest" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+        integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="app" class="app bg-topic">
+        <div class="app__container bg-white br-8">
+
+            <div id="header" class="header">
+                <h1 class="header__title fs-32 text-white">Total Budget</h1>
+                <p total="0" class="header__total text-topic font-2 fw-500 fs-36 bg-white mt-1 pt-1 pb-1 pl-3 pr-3">
+                    $0
+                </p>
+            </div>
+
+            <div id="category" class="category bg-brown pt-1 pb-1">
+                <div class="category__header">
+                    <h1 class="category__header--title fs-32 fw-600">
+                        Category
+                    </h1>
+                    <div class="category__header--btn mt-1">
+                        <button
+                            class="category__header--previous btn-click btn-comp-topic disable text-white text-topic fw-500 br-16 p-1"
+                            type="button">
+                            <p>Previous</p>
+                        </button>
+                        <button
+                            class="category__header--next btn-click btn-comp-topic text-white text-topic fw-500 br-16 ml-1 p-1"
+                            type="button">
+                            <p>Next</p>
+                        </button>
+                    </div>
+                </div>
+                <div class="category__body">
+                    <div class="category__body--box">
+                        <div class="category__body--container">
+
+                            <!-- <div class="category__body--item text-dark">
+                                <div class="category__body--img br-full">
+                                    <img src="./assets/img/salary.png" alt="">
+                                </div> -->
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="history" class="history">
+                <div class="row">
+                    <div class="history__income col-12 col-sm-6 p-2">
+                        <h1 class="history__income--title text-topic fs-32 ml-2 mr-2">
+                            Income
+                        </h1>
+
+                        <div class="history__income--body">
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="history__cost col-12 col-sm-6 p-2">
+                        <h1 class="history__cost--title text-pink fs-32 ml-2 mr-2">
+                            Cost
+                        </h1>
+
+                        <div class="history__cost--body">
+
+                            <!-- <div class="history__cost--item br-8 p-2">
+                                <div class="history__cost--img br-8">
+                                    <img src="./assets/img/salary.png" alt="">
+                                </div>
+                                <div class="history__cost--description ml-2">
+                                    <h1 class="history__cost--name text-pink fs-24 fw-600 mb-1">
+                                        Salary income
+                                    </h1>
+                                    <h3 class="history__cost--total fs-20 fw-600 mb-1">
+                                        -$700
+                                    </h3>
+                                    <p class="history__cost--date fs-italic fw-500">
+                                        Created at: Thu Nov 11 2021
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="history__cost--item br-8 p-2">
+                                <div class="history__cost--img br-8">
+                                    <img src="./assets/img/gift.png" alt="">
+                                </div>
+                                <div class="history__cost--description ml-2">
+                                    <h1 class="history__cost--name text-pink fs-24 fw-600 mb-1">
+                                        Gift income
+                                    </h1>
+                                    <h3 class="history__cost--total fs-20 fw-600 mb-1">
+                                        -$500
+                                    </h3>
+                                    <p class="history__cost--date fs-italic fw-500">
+                                        Created at: Thu Nov 11 2021
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="history__cost--item br-8 p-2">
+                                <div class="history__cost--img br-8">
+                                    <img src="./assets/img/shopping.png" alt="">
+                                </div>
+                                <div class="history__cost--description ml-2">
+                                    <h1 class="history__cost--name text-pink fs-24 fw-600 mb-1">
+                                        Shopping income
+                                    </h1>
+                                    <h3 class="history__cost--total fs-20 fw-600 mb-1">
+                                        -$300
+                                    </h3>
+                                    <p class="history__cost--date fs-italic fw-500">
+                                        Created at: Thu Nov 11 2021
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="history__cost--item br-8 p-2">
+                                <div class="history__cost--img br-8">
+                                    <img src="./assets/img/shopping.png" alt="">
+                                </div>
+                                <div class="history__cost--description ml-2">
+                                    <h1 class="history__cost--name text-pink fs-24 fw-600 mb-1">
+                                        Shopping income
+                                    </h1>
+                                    <h3 class="history__cost--total fs-20 fw-600 mb-1">
+                                        -$300
+                                    </h3>
+                                    <p class="history__cost--date fs-italic fw-500">
+                                        Created at: Thu Nov 11 2021
+                                    </p>
+                                </div>
+                            </div> -->
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="history__backdrop">
+
+                </div>
+            </div>
+
+        </div>
+
+        <div id="modal__actives" class="modal__actives d-none">
+
+            <div class="modal__actives--backdrop"></div>
+
+            <form class="modal__new--container bg-white br-8 p-3">
+                <h1 class="modal__new--header text-topic fs-24 pb-2">
+                    Create new: Gift
+                </h1>
+                <div class="modal__new--info mb-2">
+                    <input class="modal__input--text fs-14 mr-1 p-1" type="number" name="number" value=""
+                        id="modal__new--number" placeholder="How many?">
+                    <input class="modal__input--text fs-14 p-1" type="text" name="name" id="modal__new--name"
+                        placeholder="Title?">
+                </div>
+                <textarea name="description" class="fs-14 p-1" id="modal__new--description" cols="" rows="3"
+                    placeholder="Description:"></textarea>
+
+                <div class="modal__form--radio mt-2 mb-2">
+                    <h1 class="fs-16 fw-600 mb-1">
+                        Choose type:
+                    </h1>
+                    <div class="form-radio">
+                        <input class="form-radio-input" type="radio" name="budget" value='income' id="form__radio1"
+                            checked="true">
+                        <label class="form-radio-label fs-14" for="form__radio1">
+                            Is this your income?
+                        </label>
+                    </div>
+
+                    <div class="form-radio">
+                        <input class="form-radio-input" type="radio" name="budget" value='cost' id="form__radio2">
+                        <label class="form-radio-label fs-14" for="form__radio2">
+                            Is this your cost?
+                        </label>
+                    </div>
+                </div>
+
+                <div class="modal__btn mb-1">
+                    <button type="button"
+                        class="modal__btn--cancel btn-click btn-light-bg-info btn pt-1 pb-1 pl-2 pr-2">
+                        Cancel
+                    </button>
+
+                    <button type="button"
+                        class="modal__btn--confirm btn-click btn-light-bg-topic btn pt-1 pb-1 pl-2 pr-2 ml-1">
+                        Create One
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+        <div id="modal__history" class="modal__history bg-white d-none">
+            <div class="modal__history--backdrop"></div>
+
+            <div class="modal__history--container bg-white br-8 mr-2 mt-4">
+
+                <div class="modal__history--header text-topic p-2 ">
+                    <h1 class="modal__history--number fs-20 pr-2 pl-2 pt-1 pb-1">
+                        $700
+                    </h1>
+
+                    <div class="modal__history--name fs-16 ml-2">
+                        Salary income
+                    </div>
+
+                </div>
+
+                <div class="modal__history--body bg-white br-8">
+                    <div class="modal__history--position bg-white br-8">
+
+                        <div class="modal__history--slide bg-white br-8">
+                            <div class="modal__history--item1 br-8 p-2">
+
+                                <!-- <div class="modal__history--item2 mb-2">
+                                    <img src="./assets/img/calendar.png" alt="">
+                                    <div class="modal__history--info ml-2">
+                                        <h3 class="modal__history--value fw-600 fs-16 mb-1">
+                                            Month salary bonus:
+                                            <span class="text-pink">
+                                                $400
+                                            </span>
+                                        </h3>
+
+                                        <h4 class="modal__history--name fs-14 fw-500 mb-1">
+                                            Salary first
+                                        </h4>
+
+                                        <p class="modal__history--date fs-14 fw-400 fs-italic text-topic">
+                                            Created at: sun Oct 10 2021
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="modal__history--item2 mb-2">
+                                    <img src="./assets/img/calendar.png" alt="">
+                                    <div class="modal__history--info ml-2">
+                                        <h3 class="modal__history--value fw-600 fs-16 mb-1">
+                                            Month salary bonus:
+                                            <span class="text-pink">
+                                                $400
+                                            </span>
+                                        </h3>
+
+                                        <h4 class="modal__history--name fs-14 fw-500 mb-1">
+                                            Salary first
+                                        </h4>
+
+                                        <p class="modal__history--date fs-14 fw-400 fs-italic text-topic">
+                                            Created at: sun Oct 10 2021
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="modal__history--item2 mb-2">
+                                    <img src="./assets/img/calendar.png" alt="">
+                                    <div class="modal__history--info ml-2">
+                                        <h3 class="modal__history--value fw-600 fs-16 mb-1">
+                                            Month salary bonus:
+                                            <span class="text-pink">
+                                                $400
+                                            </span>
+                                        </h3>
+
+                                        <h4 class="modal__history--name fs-14 fw-500 mb-1">
+                                            Salary first
+                                        </h4>
+
+                                        <p class="modal__history--date fs-14 fw-400 fs-italic text-topic">
+                                            Created at: sun Oct 10 2021
+                                        </p>
+                                    </div>
+                                </div> -->
+
+                            </div>
+                            <!-- <div class="modal__history--item1 p-2">
+
+                                <div class="modal__history--item2 mb-2">
+                                    <img src="./assets/img/calendar.png" alt="">
+                                    <div class="modal__history--info ml-2">
+                                        <h3 class="modal__history--value fw-600 fs-16 mb-1">
+                                            Month salary bonus:
+                                            <span class="text-pink">
+                                                $400
+                                            </span>
+                                        </h3>
+
+                                        <h4 class="modal__history--name fs-14 fw-500 mb-1">
+                                            Salary first
+                                        </h4>
+
+                                        <p class="modal__history--date fs-14 fw-400 fs-italic text-topic">
+                                            Created at: sun Oct 10 2021
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="modal__history--item2 mb-2">
+                                    <img src="./assets/img/calendar.png" alt="">
+                                    <div class="modal__history--info ml-2">
+                                        <h3 class="modal__history--value fw-600 fs-16 mb-1">
+                                            Month salary bonus:
+                                            <span class="text-pink">
+                                                $400
+                                            </span>
+                                        </h3>
+
+                                        <h4 class="modal__history--name fs-14 fw-500 mb-1">
+                                            Salary first
+                                        </h4>
+
+                                        <p class="modal__history--date fs-14 fw-400 fs-italic text-topic">
+                                            Created at: sun Oct 10 2021
+                                        </p>
+                                    </div>
+                                </div>
+
+
+                            </div> -->
+
+                        </div>
+                    </div>
+
+                    <div class="modal__history--btn1 btn-click br-full bg-brown mr-1">
+                        <i class="fa-solid fa-angle-right fs-24 text-topic"></i>
+                    </div>
+
+                    <div class="modal__history--btn2 d-none btn-click br-full bg-brown ml-1">
+                        <i class="fa-solid fa-angle-left fs-24 text-topic"></i>
+                    </div>
+
+                </div>
+
+                <div class="modal__history--btns p-2">
+                    <button type="button"
+                        class="modal__history--close btn-click btn-light-bg-topic btn pt-1 pb-1 pl-2 pr-2 ml-1">
+                        Close!
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="modal__form--valid" class="modal__form--valid d-none">
+            <div class="form__valid--backdrop"></div>
+            <div class="form__valid--container bg-white br-8 p-2">
+                <h1 class="fs-16 fw-500 text-dark lin-hei-26 mb-3 ">
+                    You need to complete all the information!!!
+                </h1>
+
+                <div class="form__valid--btn">
+                    <button
+                        class="form__valid--btn1 text-white btn-click btn-light-bg-info text-end pt-1 pb-1 pl-2 pr-2">
+                        OK
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="modal__confirm--delete" class="modal__confirm--delete d-none">
+            <div class="modal__confirm--backdrop"></div>
+            <div class="modal__confirm--container bg-white br-8 p-2">
+                <h1 class="fs-16 fw-500 text-dark lin-hei-26 mb-3 ">
+                    Are you sure you want to DELETE this item from history?
+                </h1>
+
+                <div class="modal__confirm--btn">
+                    <button
+                        class="modal__confirm--btn1 text-white btn-click btn-light-bg-error text-end pt-1 pb-1 pl-2 pr-2">
+                        OK
+                    </button>
+
+                    <button
+                        class="modal__confirm--btn2 text-white btn-click btn-light-bg-topic text-end pt-1 pb-1 pl-2 pr-2 ml-1">
+                        Cancel
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <script src="./main.js"></script>
+</body>
+
+</html>

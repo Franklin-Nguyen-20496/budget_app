@@ -1,0 +1,5 @@
+#module node
+/node_modules
+
+#pritier
+/.vscode
