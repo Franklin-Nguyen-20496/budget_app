@@ -1,6 +1,6 @@
 'use strict';
 // data
-const actives = [
+const modelActives = [
     {
         id: 1,
         name: 'Salary',
@@ -37,7 +37,18 @@ const actives = [
         img: './assets/img/other.png',
     },
 ];
-let length = actives.length;
+
+function createActives() {
+    if (JSON.parse(localStorage.getItem('actives')) === null) {
+        localStorage.setItem('actives', JSON.stringify(modelActives));
+    }
+}
+createActives();
+
+let length = (JSON.parse(localStorage.getItem('actives'))).length;
+console.log(length);
+console.log('actives da luu', localStorage.getItem('actives'));
+
 // handle when click active-item
 function showModalActives(element) {
     $('.modal__new--header').text(`Create new ${element.attr('name')}`);
@@ -55,6 +66,10 @@ class Model {
         else {
             return JSON.parse(localStorage.getItem('items'));
         }
+    }
+
+    getActives() {
+        return JSON.parse(localStorage.getItem('actives'));
     }
 
     addItem(value) {
@@ -85,13 +100,15 @@ class Model {
         localStorage.setItem('items', JSON.stringify(items));
         return items;
     }
+
 }
 const model = new Model();
 
 // render item when just create item
 function renderItemWhenCreate(type, activeId) {
     const items = model.getItems();
-    let value = actives.find((val, index) => {
+
+    let value = (model.getActives()).find((val, index) => {
         return val.id == activeId;
     })
 
@@ -195,7 +212,7 @@ function handleModalActives() {
         $('.modal__actives').addClass('d-none');
     }
 
-    $('.category__body--item').click((event) => {
+    $('.js-category__body--item').click((event) => {
         let element = $(event.currentTarget);
         const modalActives = $('.modal__actives');
         modalActives.attr('active-id', element.attr('id'));
@@ -204,13 +221,13 @@ function handleModalActives() {
         showModalActives(modalActives);
     })
 
-    $('.modal__btn--confirm').click(() => {
-        let activeId = $('.modal__actives').attr('active-id');
-        let value = $('#modal__new--number').val();
-        let name = $('#modal__new--name').val();
-        let description = $('#modal__new--description').val();
-        let type = $('input[name="budget"]:checked').val();
-        let createdDateAt = (new Date()).toDateString();
+    $('#modal__btn--confirm').click(() => {
+        const activeId = $('.modal__actives').attr('active-id');
+        const value = $('#modal__new--number').val();
+        const name = $('#modal__new--name').val();
+        const description = $('#modal__new--description').val();
+        const type = $('input[name="budget"]:checked').val();
+        const createdDateAt = (new Date()).toDateString();
 
         if (value > 0 && !!name && !!description) {
             const item = { activeId, value, name, description, type, createdDateAt };
@@ -224,16 +241,19 @@ function handleModalActives() {
                 handleDeleteItemHistory(event);
             });
             $('#modal__actives').addClass('d-none');
+            return 0;
         }
         else {
             // show notify validation form
             $('#modal__form--valid').removeClass('d-none');
+            return 0;
         }
     })
 
     $('.modal__btn--cancel').click(() => {
         // reset form
         resetForm()
+        return 0;
     })
 };
 
@@ -266,7 +286,7 @@ function renderHistoryWhenInit() {
         $('.header__total').text(`-$${-totalBudget}`);
     }
 
-    actives.forEach((value, index) => {
+    (model.getActives()).forEach((value, index) => {
 
         if (checkItem('income', value)) {
             // process total income value
@@ -340,13 +360,16 @@ function renderHistoryWhenInit() {
 
 function getTotalSlideItems() {
     let totalSlide = $('.category__body--item').length * 120;
-    return ((totalSlide / 120 - 5) / 2).toFixed();
+
+    return (($('.category__body--item').length - 5) / 2).toFixed();
 };
 
 function renderActives() {
-    actives.forEach((value, index) => {
-        $(` 
-            <div class="category__body--item btn-click text-dark" id="${value.id}" name="${value.name}" img="${value.img}">
+    (model.getActives()).forEach((value, index) => {
+        if (index === (length - 1)) {
+            $(` 
+            <div class="category__body--item js-category__body--other btn-click text-dark" 
+            id="${value.id}" name="${value.name}" img="${value.img}">
                 <div class="category__body--img br-full">
                     <img src="${value.img}" alt="${value.name}">
                 </div>
@@ -355,7 +378,22 @@ function renderActives() {
                     ${value.name}
                 </h2>
             </div>
-        `).appendTo('.category__body--container')
+            `).appendTo('.category__body--container');
+        }
+        else {
+            $(` 
+            <div class="category__body--item js-category__body--item btn-click text-dark" 
+            id="${value.id}" name="${value.name}" img="${value.img}">
+                <div class="category__body--img br-full">
+                    <img src="${value.img}" alt="${value.name}">
+                </div>
+
+                <h2 class="category__body--name text-center fs-20 fw-600 mt-2">
+                    ${value.name}
+                </h2>
+            </div>
+            `).appendTo('.category__body--container');
+        }
     })
 };
 
@@ -516,13 +554,72 @@ function handleDeleteItemHistory(event) {
     })
 }
 
-$('document').ready(() => {
-    renderActives();
-    renderHistoryWhenInit();
+// add active
+function addActive(active) {
+    const array = model.getActives();
+    const lastActive = (array.pop());
+    array.push(active, lastActive);
+    console.log(array);
+    localStorage.setItem('actives', JSON.stringify(array))
+    // chua xong
+}
 
-    // handle slide active
+// create active
+function handleCreateOtherActive() {
+    $('.js-category__body--other').click(() => {
+        $('.js-modal__other').removeClass('d-none');
+    })
+
+    $('.js-modal__other--confirm').click(() => {
+        let value = ($('.js-modal__other--input').val()).trim();
+        if (value === '') {
+            $('.modal-form__valid--active').removeClass('d-none');
+        }
+        else {
+            const active = {
+                id: ++length,
+                name: value,
+                img: './assets/img/dollar.png',
+            }
+            addActive(active);
+            $(".js-category__body--other").before(` 
+            <div class="category__body--item js-category__body--item btn-click text-dark" 
+            id="${active.id}" name="${active.name}" img="${active.img}">
+                <div class="category__body--img br-full">
+                    <img src="${active.img}" alt="${active.name}">
+                </div>
+
+                <h2 class="category__body--name text-center fs-20 fw-600 mt-2">
+                    ${active.name}
+                </h2>
+            </div>
+            `);
+
+            handleSlideActives();
+            renderActives();
+            handleModalActives();
+
+            $('.js-modal__other').addClass('d-none');
+        }
+    })
+
+    $('.js-modal__other-cancel').click(() => {
+        $('.js-modal__other').addClass('d-none');
+    })
+}
+
+// handle animation/slide actives
+function handleSlideActives() {
+    console.log('handleSlideActives');
+
+    // reset slide
+    $('.category__body--container').css('transform', `translateX(0px)`);
+    $('.category__header--next').removeClass('disable');
+    $('.category__header--previous').addClass('disable');
+
     let sequelize = 0;
     let n = getTotalSlideItems();
+    console.log('n', n);
     let i = 0;
 
     $('.category__header--next').click(() => {
@@ -547,6 +644,15 @@ $('document').ready(() => {
         }
         else $('.category__header--next').removeClass('disable');
     });
+
+}
+
+$('document').ready(() => {
+    renderActives();
+    renderHistoryWhenInit();
+
+    // handle slide active
+    handleSlideActives()
 
     // stop Propagation when click delete history item and handle confirm
     $('.history__item--delete').click((event) => {
@@ -574,9 +680,17 @@ $('document').ready(() => {
         $('#modal__form--valid').addClass('d-none');
     });
 
+    // handle close modal confirm when create new active
+    $('.js-modal-form__valid--active-btn').click(() => {
+        $('.modal-form__valid--active').addClass('d-none');
+    });
+
     // handle Modal active
     handleModalActives();
 
     // render modal history when click
     renderModalHistoryWhenClick();
+
+    // handle create other active
+    handleCreateOtherActive();
 })

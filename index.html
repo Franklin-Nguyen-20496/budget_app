@@ -204,9 +204,38 @@
                         Cancel
                     </button>
 
-                    <button type="button"
+                    <button type="button" id="modal__btn--confirm"
                         class="modal__btn--confirm btn-click btn-light-bg-topic btn pt-1 pb-1 pl-2 pr-2 ml-1">
                         Create One
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+        <div id="modal__other" class="modal__other js-modal__other d-none">
+            <div class="modal__actives--backdrop"></div>
+
+            <form class="modal__new--container bg-white br-8 p-3">
+                <h1 class="modal__new--header text-topic fs-24 pb-2">
+                    Create new topic budget
+                </h1>
+                <div class="modal__new--info mb-3">
+
+                    <!-- <label for="modal__other--name" class="fs-14 pb-3">Name:</label> -->
+                    <input class="modal__other--input js-modal__other--input fs-14 p-1" type="text" name="newTopic"
+                        id="modal__other--name" placeholder="Name?">
+                </div>
+
+                <div class="modal__btn mb-1">
+                    <button type="button"
+                        class="modal__other--cancel js-modal__other-cancel btn-click btn-light-bg-info btn pt-1 pb-1 pl-2 pr-2">
+                        Cancel
+                    </button>
+
+                    <button type="button"
+                        class="modal__other--confirm js-modal__other--confirm btn-click btn-light-bg-topic btn pt-1 pb-1 pl-2 pr-2 ml-1">
+                        Create new
                     </button>
                 </div>
 
@@ -398,6 +427,23 @@
                     <button
                         class="modal__confirm--btn2 text-white btn-click btn-light-bg-topic text-end pt-1 pb-1 pl-2 pr-2 ml-1">
                         Cancel
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="modal-form__valid--active" class="modal-form__valid--active d-none">
+            <div class="form__valid--backdrop"></div>
+            <div class="form__valid--container bg-white br-8 p-2">
+                <h1 class="fs-16 fw-500 text-dark lin-hei-26 mb-3 ">
+                    You need to complete information to create new topic budget!!!
+                </h1>
+
+                <div class="form__valid--btn">
+                    <button
+                        class="js-modal-form__valid--active-btn text-white btn-click btn-light-bg-info text-end pt-1 pb-1 pl-2 pr-2">
+                        OK
                     </button>
                 </div>
 
