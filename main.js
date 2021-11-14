@@ -221,14 +221,8 @@ function handleModalActives() {
     $('#modal__btn--confirm').click(() => {
         const activeId = $('.modal__actives').attr('active-id');
         const value = $('#modal__new--number').val();
-        console.log($('#modal__new--number'));
-        console.log('value', value);
         const name = $('#modal__new--name').val();
-        console.log($('#modal__new--name'));
-        console.log('name', name);
         const description = $('#modal__new--description').val();
-        console.log($('#modal__new--description'));
-        console.log('description', description);
         const type = $('input[name="budget"]:checked').val();
         const createdDateAt = (new Date()).toDateString();
 
@@ -544,7 +538,6 @@ function handleDeleteItemHistory(event) {
         let btnId = $('.modal__confirm--btn1').attr('active-id');
         const items = model.deleteItem(btnType, btnId);
         calcTotalBudgetWhenReload(items);
-        console.log(btnType, btnId);
         $(`.${btnType}__id--${btnId}`).remove();
         $('.modal__confirm--delete').addClass('d-none');
         // items.splice(0, items.length);
@@ -662,7 +655,6 @@ function handleSlideActivesWhenCreateNewActive() {
     // reset slide
     $('document').ready(() => {
         const n = getTotalSlideItems();
-        console.log('n', n);
         let sequelize = n * 240;
         let i = n;
         // reset slide
